@@ -1,21 +1,31 @@
-​<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Compass Sample</title>
  
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
         <meta charset="utf-8">
-        <link href="compassStyles.css" rel="stylesheet" type="text/css" />
+        <link href="styles/main.css" rel="stylesheet" type="text/css" />
 
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-        <script type="text/javascript" charset="utf-8" src="compassScripts.js"></script>
-
+        <script type="text/javascript" charset="utf-8" src="scripts/main.js"></script>
     </head>
     <body>
-        <h1>Compass Sample</h1>
-        <button id="watchButton">Start Compass Watch</button>
-        <button id="refreshButton">Refresh Compass</button>
-        <hr/>
-        <div id="notificationBox"></div>
+        <header class="header">
+            <h1>Compass Sample</h1>
+        </header>
+        <div class="content">
+            <button class="button" id="watchButton">Start Compass</button>
+            <button class="button" id="refreshButton">Current Orientation</button>
+            <hr class="horizontalLine" />
+            <div class="mapCompassFrame">
+                <div id="compass" class="mapCompass"></div>
+            </div>
+            <hr class="horizontalLine" />
+            <div id="result"></div>
+        </div>
+        <footer class="footer">
+            <div>Cordova API Samples</div>
+        </footer>
     </body>
 </html>

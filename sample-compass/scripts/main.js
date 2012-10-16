@@ -1,66 +1,100 @@
-//NOTE: Add button to make things start going.
-// ClearWatch button would stop the watch
-var watchID = null;
 document.addEventListener("deviceready", onDeviceReady, false);
-
-function writeNotification(value) {
-    var notificationBox = document.getElementById("notificationBox");
-    notificationBox.innerHTML = value;
-}
-
-function clearCurrentNotification() {
-    var notificationBox = document.getElementById("notificationBox");
-    notificationBox.innerHTML = "";
-}           
+var compassHelpter;
 
 function onDeviceReady() {
-    document.getElementById("watchButton").addEventListener("click", handleWatch, false);
-    document.getElementById("refreshButton").addEventListener("click", handleRefresh, false);
+    compassHelpter = new CompassHelper();
 }
 
-function handleRefresh() {
-    navigator.compass.getCurrentHeading(onCompassWatchSuccess, onCompassWatchError);
+function CompassHelper() {
+    var that = this;
+    that.init();
 }
 
-function handleWatch() {
-    // If watch is running, clear it now. Otherwise, start it.
-    var button = document.getElementById("watchButton");
-     
-    if (watchID != null) {
-        clearCurrentNotification();
-        navigator.compass.clearWatch(watchID);
-        watchID = null;
+CompassHelper.prototype = {
+    watchID : null,
+    init: function() {
+		var that = this;
+          
+        var platform = device.platform;
+        if(platform === 'Android') {
+            var buttonWatch = document.getElementById("watchButton");
+            buttonWatch.style.display = 'none';
+            document.getElementById("watchButton").addEventListener("click", 
+																function() {
+                                                                    that.handleWatch.apply(that, arguments);
+																}, 
+																false);
+        }
+		document.getElementById("refreshButton").addEventListener("click", 
+																  function() {
+                                                                      that.handleRefresh.apply(that, arguments)
+																  }, 
+																  false);
+    },
+    
+    handleRefresh: function() {
+        var that = this;
+		navigator.compass.getCurrentHeading(function() { 
+                                			    that.onCompassWatchSuccess.apply(that, arguments)
+                                    		},
+        									function() {
+        										that.onCompassWatchError.apply(that, arguments)
+        									});
+    },
+    
+    handleWatch: function() {
+        var button = document.getElementById("watchButton"),
+            that = this;
          
-        button.innerHTML = "Start Compass Watch";
-    }
-    else {
-        clearCurrentNotification();
-        writeNotification("Waiting for compass information...");
-        
-        // Update the watch every second. Trigger a watchHeading
-        // callback if the bearing changes by 10 degrees (not valid on Android).
-        var options = { frequency: 1000, filter: 10 };
-        watchID = navigator.compass.watchHeading(onCompassWatchSuccess, onCompassWatchError, options);
-        
-        button.innerHTML = "Clear Compass Watch";
-    }
-}
-
-function onCompassWatchSuccess(heading) {
-    // Successfully retrieved the compass information. Display it all.
-    // True heading and accuracy are not meaningful on iOS and Android devices.
-    var magneticHeading = heading.magneticHeading,
-        timestamp = heading.magneticHeading;
+        if (that.watchID != null) {
+            navigator.compass.clearWatch(that.watchID);
+            that.watchID = null;
+            button.innerHTML = "Start Compass";
+            that.clearCurrentNotification();
+        }
+        else {
+            that.clearCurrentNotification();
+            that.writeNotification("Waiting for compass information...");
+            var options = { frequency: 1000, filter: 10 };
+			that.watchID = navigator.compass.watchHeading(function() { 
+                                                            that.onCompassWatchSuccess.apply(that, arguments)
+                                                        }, 
+                                                        function() {
+                                                            that.onCompassWatchError.apply(that, arguments)
+                                                        }, 
+                                                        options);
+            
+            button.innerHTML = "Stop Compass";
+        }
+    },
     
-    var informationMessage = 'Magnetic heading: ' + magneticHeading + '<br />' +
-                             'Timestamp: ' + timestamp + '<br />' 
-    clearCurrentNotification();
-    writeNotification(informationMessage);
-}
-
-function onCompassWatchError(error) {
-    var errorMessage = "code: " + error.code + "<br/>" +
-                       "message: " + error.message + "<br/>";
+    onCompassWatchSuccess: function(heading) {
+        var that = this;
+        var magneticHeading = heading.magneticHeading,
+            timestamp = heading.magneticHeading;
+        
+        var informationMessage = 'Magnetic heading: ' + magneticHeading + '<br />' +
+                                 'Timestamp: ' + timestamp + '<br />' 
+        document.getElementById("compass").style.MozTransform = "rotate(" + magneticHeading + "deg)";                      
+        document.getElementById("compass").style.webkitTransform = "rotate(" + magneticHeading + "deg)";
+        
+        that.clearCurrentNotification();
+        that.writeNotification(informationMessage);
+    },
     
-    alert(errorMessage);
+    onCompassWatchError: function(error) {
+        var errorMessage = "code: " + error.code + "<br/>" +
+                           "message: " + error.message + "<br/>";
+        alert(errorMessage);
+    },
+    
+    writeNotification: function(text) {
+        var result = document.getElementById("result");
+        result.innerHTML = text;
+    },
+    
+    clearCurrentNotification: function() {
+        var result = document.getElementById("result");
+        result.innerText = "";
+    }
 }
