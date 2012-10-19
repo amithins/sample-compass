@@ -18,6 +18,10 @@ body
 	background-repeat: repeat-x;
 	background-image: url("img/header.png");
 	height: 60px;
+    position: fixed;
+	top: 0px;
+	display: block;
+	width: 100%;
 }
 
 h1
@@ -32,7 +36,7 @@ h1
 
 .content
 {
-	margin: 20px 5px;
+	margin: 80px 5px;
 	text-align: center;
 }
 
@@ -137,6 +141,11 @@ button.big
 	color: #ABADB0;
 	padding-right: 12px;
 	padding-top: 2px;
+}
+
+#compass {
+    -webkit-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
 }
 
 .mapCompassFrame
