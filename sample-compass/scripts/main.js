@@ -12,30 +12,21 @@ function CompassHelper() {
 
 CompassHelper.prototype = {
 	watchID : null,
-    heading : null,
     
 	run: function() {
 		var that = this,
             refreshButton = document.getElementById("refreshButton"),
-    		buttonWatch = document.getElementById("watchButton"),
-    		platform = device.platform;
-        
-		if (platform === 'Android') {
-			buttonWatch.style.display = "none";
-			refreshButton.style.width = "300px";
-			
-		}
-		else {
-			buttonWatch.addEventListener("click", 
-										 function() {
-											 that._handleWatch.apply(that, arguments);
-										 }, 
-										 false);
-		}
+    		buttonWatch = document.getElementById("watchButton");
+		
+		buttonWatch.addEventListener("click", 
+									 function() {
+										 that._handleWatch.apply(that, arguments);
+									 }, 
+									 false);
 		
 		refreshButton.addEventListener("click", 
 									   function() {
-										   that._handleRefresh.apply(that, arguments)
+                                           that._handleRefresh.apply(that, arguments)
 									   }, 
 									   false);
 	},
@@ -43,8 +34,8 @@ CompassHelper.prototype = {
 	_handleRefresh: function() {
 		var that = this;
 		navigator.compass.getCurrentHeading(function() { 
-			that._setHeadinOfCompass.call(that, that.heading);
-            that._onCompassWatchSuccess.apply(that, arguments)
+			that._rotateCompassImage.apply(that, arguments);
+            that._displayHeading.apply(that, arguments)
 		},
         function() {
             that._onCompassWatchError.apply(that, arguments)
@@ -62,17 +53,15 @@ CompassHelper.prototype = {
 			that._clearCurrentNotification();
 		}
 		else {
-			var options = { frequency: 1000, filter: 10 };
+			var options = { frequency: 1000 };
 			
             that._clearCurrentNotification();
 			that._writeNotification("Waiting for compass information...");
             button.innerHTML = "Stop Compass";
             
             that.watchID = navigator.compass.watchHeading(function() { 
-				that._onCompassWatchSuccess.apply(that, arguments)
-                setTimeout(function() {
-                    that._setHeadinOfCompass.call(that, that.heading);
-                }, 1000);
+				that._displayHeading.apply(that, arguments)
+                that._rotateCompassImage.apply(that, arguments);
 			}, 
             function() {
                 that._onCompassWatchError.apply(that, arguments)
@@ -81,15 +70,13 @@ CompassHelper.prototype = {
 		}
 	},
     
-	_onCompassWatchSuccess: function(heading) {
+	_displayHeading: function(heading) {
 		var that = this,
 		    magneticHeading = 360 - heading.magneticHeading,
 		    timestamp = heading.timestamp;
         
 		var informationMessage = 'Magnetic field: ' + magneticHeading + '<br />' +
 								 'Timestamp: ' + timestamp + '<br />' 
-  
-        that.heading = magneticHeading;
         
 		that._clearCurrentNotification();
 		that._writeNotification(informationMessage);
@@ -105,7 +92,9 @@ CompassHelper.prototype = {
 		}
 		else if (error.code === CompassError.COMPASS_INTERNAL_ERR) {
 			errorMessage = "Compass internal error";
-		}
+		} else {
+            errorMessage = "Compass error";
+        }
         
         button.innerHTML = "Start Compass";
 		that.watchID = null;
@@ -123,9 +112,9 @@ CompassHelper.prototype = {
 		result.innerText = "";
 	}, 
       
-    _setHeadinOfCompass : function(magneticHeading) {
-    	var compassDiv = document.getElementById("compass");
-    	var rotation = "rotate(" + magneticHeading + "deg)";
+    _rotateCompassImage : function(heading) {
+        var compassDiv = document.getElementById("compass");
+    	var rotation = "rotate(" + heading.magneticHeading + "deg)";
               
     	compassDiv.style.webkitTransform = rotation;
     }
