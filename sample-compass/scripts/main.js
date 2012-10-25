@@ -72,7 +72,7 @@ CompassHelper.prototype = {
     
 	_displayHeading: function(heading) {
 		var that = this,
-		    magneticHeading = 360 - heading.magneticHeading,
+		    magneticHeading = heading.magneticHeading,
 		    timestamp = heading.timestamp;
         
 		var informationMessage = 'Magnetic field: ' + magneticHeading + '<br />' +
@@ -113,8 +113,10 @@ CompassHelper.prototype = {
 	}, 
       
     _rotateCompassImage : function(heading) {
-        var compassDiv = document.getElementById("compass");
-    	var rotation = "rotate(" + heading.magneticHeading + "deg)";
+        var compassDiv = document.getElementById("compass"),
+    	    magneticHeading = magneticHeading = 360 - heading.magneticHeading;
+        
+        var rotation = "rotate(" + magneticHeading + "deg)";
               
     	compassDiv.style.webkitTransform = rotation;
     }
