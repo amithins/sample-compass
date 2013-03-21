@@ -3,6 +3,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 var compassHelpter;
 
 function onDeviceReady() {
+    navigator.splashscreen.hide();
 	compassHelpter = new CompassHelper();
 	compassHelpter.run();
 }
