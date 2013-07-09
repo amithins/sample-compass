@@ -266,3 +266,10 @@ body
 	height: 154px;
 	background-image: url("img/compass.png");
 }
+    
+/*specific*/
+.content > .result-area > .results  > .desc {
+    font-size:16px;
+    color:#639ecd;
+    word-wrap:break-word;
+}
