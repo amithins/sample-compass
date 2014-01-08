@@ -15,8 +15,8 @@
     <AndroidHardwareAcceleration>false</AndroidHardwareAcceleration>
     <iOSDeviceFamily>1;2</iOSDeviceFamily>
     <iOSBackgroundMode />
-    <FrameworkVersion>3.0.0</FrameworkVersion>
-    <CorePlugins>org.apache.cordova.core.device-orientation;org.apache.cordova.core.splashscreen</CorePlugins>
+    <FrameworkVersion>3.2.0</FrameworkVersion>
+    <CorePlugins>org.apache.cordova.device-orientation;org.apache.cordova.splashscreen</CorePlugins>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Telerik\ICE\Tools\Mobile\MobileTools.targets" />
 </Project>
