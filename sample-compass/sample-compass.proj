@@ -10,13 +10,16 @@
     <DeviceOrientations>Portrait;Landscape</DeviceOrientations>
     <iOSStatusBarStyle>Default</iOSStatusBarStyle>
     <BundleVersion>1.0</BundleVersion>
-    <iOSDisplayName>Compass</iOSDisplayName>
+    <iOSDisplayName>
+    </iOSDisplayName>
     <AndroidVersionCode>1</AndroidVersionCode>
     <AndroidHardwareAcceleration>false</AndroidHardwareAcceleration>
     <iOSDeviceFamily>1;2</iOSDeviceFamily>
     <iOSBackgroundMode />
     <FrameworkVersion>3.2.0</FrameworkVersion>
     <CorePlugins>org.apache.cordova.device-orientation;org.apache.cordova.splashscreen</CorePlugins>
+    <DisplayName>Compass</DisplayName>
+    <WP8SupportedResolutions>ID_RESOLUTION_WVGA;ID_RESOLUTION_WXGA;ID_RESOLUTION_HD720P</WP8SupportedResolutions>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Telerik\ICE\Tools\Mobile\MobileTools.targets" />
 </Project>
