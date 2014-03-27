@@ -92,6 +92,7 @@ body
     width: 100%;
     border-top: 1px solid #9ca1a5;
     position:relative;
+    overflow: auto;
 }
 .content > .input-area,
 .content > .action-area {
