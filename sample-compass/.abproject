@@ -1,0 +1,51 @@
+{
+  "ProjectGuid": "80077a41-4b0d-495b-b883-2ad9cd291cfb",
+  "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
+  "AppIdentifier": "com.telerik.samplecompass",
+  "ProjectName": "sample-compass",
+  "IsRunnable": "true",
+  "AndroidPermissions": [
+    "android.permission.CAMERA",
+    "android.permission.VIBRATE",
+    "android.permission.ACCESS_COARSE_LOCATION",
+    "android.permission.ACCESS_FINE_LOCATION",
+    "android.permission.ACCESS_LOCATION_EXTRA_COMMANDS",
+    "android.permission.READ_PHONE_STATE",
+    "android.permission.INTERNET",
+    "android.permission.RECEIVE_SMS",
+    "android.permission.RECORD_AUDIO",
+    "android.permission.MODIFY_AUDIO_SETTINGS",
+    "android.permission.READ_CONTACTS",
+    "android.permission.WRITE_CONTACTS",
+    "android.permission.WRITE_EXTERNAL_STORAGE",
+    "android.permission.ACCESS_NETWORK_STATE"
+  ],
+  "DeviceOrientations": [
+    "Portrait",
+    "Landscape"
+  ],
+  "iOSStatusBarStyle": "Default",
+  "BundleVersion": "1.0",
+  "iOSDisplayName": "",
+  "AndroidVersionCode": "1",
+  "AndroidHardwareAcceleration": "false",
+  "iOSDeviceFamily": [
+    "1",
+    "2"
+  ],
+  "iOSBackgroundMode": [],
+  "FrameworkVersion": "3.5.0",
+  "CorePlugins": [
+    "org.apache.cordova.device-orientation",
+    "org.apache.cordova.splashscreen"
+  ],
+  "DisplayName": "Compass",
+  "WP8SupportedResolutions": [
+    "ID_RESOLUTION_WVGA",
+    "ID_RESOLUTION_WXGA",
+    "ID_RESOLUTION_HD720P"
+  ],
+  "Author": "",
+  "Description": "sample-compass",
+  "Framework": "Cordova"
+}
