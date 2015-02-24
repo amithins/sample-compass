@@ -45,7 +45,5 @@
 	"Author": "",
 	"Description": "sample-compass",
 	"Framework": "Cordova",
-	"projectVersion": 1,
-	"WP8PublisherID": "{851ff0dd-d747-4677-8f67-93c4371c9bfb}",
-	"WP8ProductID": "{3059cc50-95dc-4bdd-a886-e8c5a9dce535}"
+	"projectVersion": 1
 }
