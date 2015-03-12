@@ -111,7 +111,7 @@ CompassHelper.prototype = {
     
 	_clearCurrentNotification: function() {
 		var result = document.getElementById("result");
-		result.innerText = "";
+		result.textContent = "";
 	}, 
       
 	_rotateCompassImage : function(heading) {
